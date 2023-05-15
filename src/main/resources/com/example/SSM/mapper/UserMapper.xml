@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.SSM.mapper.UserMapper">
+
+    <!--
+        mapper接口和映射文件要保证两个一致；
+        1、mapper接口的全类名和映射文件的namespace一致
+        2、mapper接口中的方法的方法名要和映射文件中的SQL的id保持一致
+    -->
+    <!--int insertUser();-->
+<!--    <insert id="insertUser">-->
+<!--        insert into ssm_user values(1,'admin','12345',23,'male','12345@qq.com')-->
+<!--    </insert>-->
+
+    <update id="updateUser">
+        update ssm_user set username='root', password = '123' where id = 1
+    </update>
+
+    <delete id="deleteUser">
+        delete from ssm_user where id = 1
+    </delete>
+
+    <!-- User getUserById()-->
+    <!--
+        resultType: 设置结果类型， 即查询的数据药转换为的java类型
+        resultMap: 自定义映射， 处理多对一或一对多的映射关系
+    -->
+    <select id="getUserById" resultType="User">
+        select * from ssm_user where id = 1
+    </select>
+
+    <!--getAllUser();-->
+    <select id="getAllUser" resultType="User">
+        select * from ssm_user
+    </select>
+    
+    <select id="getUserByUsername" resultType="User">
+        select * from ssm_user where username = '${username}'
+    </select>
+
+    <!--User checkLogIn(String username, String password)-->
+    <select id="checkLogIn" resultType="User">
+        select * from ssm_user where username = '${arg0}' and password = '${arg1}'
+    </select>
+
+    <!--User checkLogInMap(Map<String, Object> map)-->
+    <select id="checkLogInMap" resultType="User">
+        select * from ssm_user where username = '${username}' and password = '${password}'
+    </select>
+    
+    <!--void insertUser(User user)-->
+    <insert id="insertUser">
+        insert into ssm_user values('${id}','${username}', '${password}', '${age}', '${gender}', '${email}')
+    </insert>
+
+    <!--User checkLogInByParam(@Param("username") String username, @Param("password") String password-->
+    <select id="checkLogInByParam" resultType="User">
+        select * from ssm_user where username = '${username}' and password = '${password}'
+    </select>
+
+</mapper>
